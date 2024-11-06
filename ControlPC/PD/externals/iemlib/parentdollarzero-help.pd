@@ -1,0 +1,25 @@
+#N canvas 88 175 632 308 10;
+#X obj 35 111 test-parentdollarzero;
+#X obj 319 107 f \$0;
+#X obj 319 88 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X floatatom 319 129 5 0 0 0 - - -, f 5;
+#X symbolatom 35 132 10 0 0 0 - - -, f 10;
+#X obj 35 91 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 55 94 open this abstraction;
+#X text 15 10 parentdollarzero;
+#X text 23 148 output: <symbol> of unique number;
+#X text 261 148 output: <float> of unique number;
+#X text 115 228 IEM KUG;
+#X text 99 216 musil;
+#X text 129 216 @;
+#X text 135 216 iem.at;
+#X text 98 238 Graz \, Austria;
+#X text 50 205 (c) Thomas Musil 2000 - 2018;
+#X text 149 11 receive the unique number of the parent pd-patch as
+a symbol, f 62;
+#X connect 0 0 4 0;
+#X connect 1 0 3 0;
+#X connect 2 0 1 0;
+#X connect 5 0 0 0;

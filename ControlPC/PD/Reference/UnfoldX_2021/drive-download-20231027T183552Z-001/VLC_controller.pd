@@ -1,0 +1,495 @@
+#N canvas 936 414 733 343 10;
+#N canvas 191 114 1103 642 vlc-player 1;
+#X obj 36 42 bng 30 250 50 0 \$0-vlc-play-one empty empty 17 7 0 10
+-262144 -1 -1;
+#X obj 111 42 bng 30 250 50 0 \$0-vlc-enq-file empty empty 17 7 0 10
+-262144 -1 -1;
+#X text 143 39 Enqueue file, f 8;
+#X obj 36 82 bng 30 250 50 0 \$0-vlc-play empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 111 82 bng 30 250 50 0 \$0-vlc-pause empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 68 79 Play, f 5;
+#X text 143 79 Pause, f 8;
+#X obj 201 82 bng 30 250 50 0 \$0-vlc-stop empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 233 79 Stop, f 8;
+#X obj 36 286 bng 30 250 50 0 \$0-vlc-playlist empty empty 17 7 0 10
+-262144 -1 -1;
+#X obj 111 286 bng 30 250 50 0 \$0-vlc-clear empty empty 17 7 0 10
+-262144 -1 -1;
+#X obj 201 286 bng 30 250 50 0 \$0-vlc-help empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 68 283 Show play list, f 5;
+#X text 143 283 Clear play list, f 6;
+#X text 233 283 Help (incomp), f 8;
+#X obj 332 305 tgl 15 0 empty \$0-vlc-is-connected empty 17 7 0 10
+-262144 -1 -1 1 1;
+#X obj 332 260 bng 15 250 50 0 \$0-vlc-connect empty empty 17 7 0 10
+-262144 -1 -1;
+#X text 352 260 Connect;
+#X obj 332 280 bng 15 250 50 0 \$0-vlc-disconnect empty empty 17 7
+0 10 -262144 -1 -1;
+#X text 352 280 Disconnect;
+#X text 351 305 Is connected;
+#X obj 36 122 bng 30 250 50 0 \$0-vlc-prev empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 201 122 bng 30 250 50 0 \$0-vlc-next empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 68 119 Prev, f 5;
+#X text 233 119 Next, f 8;
+#X obj 993 300 tgl 30 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X msg 64 565 disconnect;
+#X obj 1020 208 list prepend send;
+#X obj 1020 229 list trim;
+#X msg 247 543 list quit;
+#X msg 413 519 list play;
+#X msg 417 615 list stop;
+#X obj 36 756 openpanel;
+#X msg 36 837 list add \$1;
+#X obj 1020 166 list fromsymbol;
+#X obj 1020 187 list append 10;
+#X msg 36 498 connect localhost 1234;
+#X obj 993 273 netsend -b, f 11;
+#X msg 417 566 list pause;
+#X msg 247 560 list logout;
+#X msg 247 577 list shutdown;
+#X obj 36 859 s \$0-vlc;
+#X obj 393 774 s \$0-vlc;
+#X obj 1020 73 r \$0-vlc;
+#X msg 228 515 list help;
+#X msg 218 461 list playlist;
+#X obj 208 616 s \$0-vlc-backward;
+#X obj 1137 36 r \$0-vlc-backward;
+#X obj 1137 74 t b l;
+#X obj 36 610 s \$0-to-netsend;
+#X obj 993 36 r \$0-to-netsend;
+#X obj 36 441 loadbang;
+#N canvas 1 62 766 673 list2symbol 0;
+#X obj 168 348 list fromsymbol;
+#N canvas 387 559 668 519 create_list 0;
+#X obj 205 47 inlet;
+#X msg 205 98 set;
+#X obj 205 69 route clear bang;
+#X obj 205 385 outlet;
+#X msg 205 143 70 32;
+#X obj 298 92 list prepend add2;
+#X obj 298 114 list trim;
+#X connect 0 0 2 0;
+#X connect 1 0 4 0;
+#X connect 2 0 1 0;
+#X connect 2 1 4 0;
+#X connect 2 2 5 0;
+#X connect 4 0 3 0;
+#X connect 5 0 6 0;
+#X connect 6 0 4 0;
+#X restore 168 449 pd create_list;
+#X msg 484 230 clear;
+#X obj 168 513 list tosymbol;
+#X obj 168 545 outlet;
+#X obj 429 45 inlet;
+#X obj 168 46 inlet;
+#X obj 168 68 list;
+#X obj 168 103 t l b;
+#X obj 168 250 t b s;
+#X obj 168 297 t s s;
+#X obj 456 299 loadbang;
+#X msg 456 321 symbol;
+#X obj 387 348 sel [symbol];
+#X msg 387 370 0;
+#X msg 456 370 -1;
+#N canvas 1 84 450 300 remove_last_separator_if_it_exists 0;
+#X obj 168 179 list split;
+#X obj 168 110 t l l;
+#X obj 195 136 list length;
+#X obj 195 158 +;
+#X obj 168 81 inlet;
+#X obj 168 211 outlet;
+#X obj 298 81 inlet;
+#X connect 0 0 5 0;
+#X connect 1 0 0 0;
+#X connect 1 1 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 0 1;
+#X connect 4 0 1 0;
+#X connect 6 0 3 1;
+#X restore 168 482 pd remove_last_separator_if_it_exists;
+#X obj 168 370 route float list;
+#X obj 168 175 route symbol;
+#X obj 479 40 loadbang;
+#X obj 429 157 route float;
+#X obj 549 192 symbol;
+#X obj 168 275 symbol;
+#X text 482 551 Jack/RYBN 2014;
+#X obj 479 63 list append \$1;
+#X obj 479 85 route 0;
+#X msg 479 107 32;
+#X obj 479 129 makefilename %c;
+#N canvas 1 60 553 698 float2symbol 0;
+#X obj 168 635 outlet;
+#X obj 168 46 inlet;
+#X obj 168 201 pack f s;
+#X msg 168 223 \$1\$2;
+#X obj 168 245 symbol;
+#X obj 300 112 loadbang;
+#N canvas 46 628 450 300 remove_last_element 0;
+#X obj 168 179 list split;
+#X obj 168 110 t l l;
+#X obj 195 136 list length;
+#X obj 168 81 inlet;
+#X obj 168 211 outlet;
+#X obj 195 158 - 1;
+#X connect 0 0 4 0;
+#X connect 1 0 0 0;
+#X connect 1 1 2 0;
+#X connect 2 0 5 0;
+#X connect 3 0 1 0;
+#X connect 5 0 0 1;
+#X restore 168 291 pd remove_last_element;
+#X obj 168 313 list tosymbol;
+#X obj 168 267 list fromsymbol;
+#X obj 168 175 route float;
+#X msg 300 153 symbol :;
+#X text 335 474 Jack/RYBN 2014;
+#X connect 1 0 9 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 8 0;
+#X connect 5 0 10 0;
+#X connect 6 0 7 0;
+#X connect 7 0 0 0;
+#X connect 8 0 6 0;
+#X connect 9 0 2 0;
+#X connect 10 0 2 1;
+#X restore 237 214 pd float2symbol;
+#N canvas 1 58 757 540 list-drip 0;
+#X obj 63 84 t a a;
+#X obj 63 241 spigot;
+#X obj 102 149 bang;
+#X obj 102 168 1;
+#X obj 223 149 route bang;
+#X obj 183 150 bang;
+#X obj 183 169 0;
+#X obj 102 114 list split 2;
+#X obj 232 379 list split;
+#X obj 299 328 list length;
+#X obj 299 350 >> 1;
+#X obj 63 260 t a a a a;
+#X obj 63 446 list split;
+#X obj 130 398 list length;
+#X obj 130 423 >> 1;
+#X obj 31 19 inlet;
+#X obj 290 175 outlet;
+#X text 73 19 Copyright 2009 by Mathieu Bouchard;
+#X obj 31 53 t b a;
+#X obj 465 119 outlet;
+#X text 520 121 signal end of list;
+#X text 381 23 made compatible with [list-drip]: fbar 2009;
+#X connect 0 0 1 0;
+#X connect 0 1 7 0;
+#X connect 1 0 11 0;
+#X connect 2 0 3 0;
+#X connect 3 0 1 1;
+#X connect 4 1 16 0;
+#X connect 5 0 6 0;
+#X connect 6 0 1 1;
+#X connect 7 0 2 0;
+#X connect 7 2 4 0;
+#X connect 7 2 5 0;
+#X connect 8 0 0 0;
+#X connect 9 0 10 0;
+#X connect 10 0 8 1;
+#X connect 11 0 12 0;
+#X connect 11 1 13 0;
+#X connect 11 2 8 0;
+#X connect 11 3 9 0;
+#X connect 12 1 0 0;
+#X connect 13 0 14 0;
+#X connect 14 0 12 1;
+#X connect 15 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 1 0 0;
+#X restore 168 145 pd list-drip;
+#N canvas 1 60 553 698 float2symbol 0;
+#X obj 168 635 outlet;
+#X obj 168 46 inlet;
+#X obj 168 201 pack f s;
+#X msg 168 223 \$1\$2;
+#X obj 168 245 symbol;
+#X obj 300 112 loadbang;
+#N canvas 46 628 450 300 remove_last_element 0;
+#X obj 168 179 list split;
+#X obj 168 110 t l l;
+#X obj 195 136 list length;
+#X obj 168 81 inlet;
+#X obj 168 211 outlet;
+#X obj 195 158 - 1;
+#X connect 0 0 4 0;
+#X connect 1 0 0 0;
+#X connect 1 1 2 0;
+#X connect 2 0 5 0;
+#X connect 3 0 1 0;
+#X connect 5 0 0 1;
+#X restore 168 291 pd remove_last_element;
+#X obj 168 313 list tosymbol;
+#X obj 168 267 list fromsymbol;
+#X obj 168 175 route float;
+#X msg 300 153 symbol :;
+#X text 335 474 Jack/RYBN 2014;
+#X connect 1 0 9 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 8 0;
+#X connect 5 0 10 0;
+#X connect 6 0 7 0;
+#X connect 7 0 0 0;
+#X connect 8 0 6 0;
+#X connect 9 0 2 0;
+#X connect 10 0 2 1;
+#X restore 429 189 pd float2symbol;
+#X connect 0 0 17 0;
+#X connect 1 0 16 0;
+#X connect 2 0 1 0;
+#X connect 3 0 4 0;
+#X connect 5 0 20 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 29 0;
+#X connect 8 1 2 0;
+#X connect 9 0 22 0;
+#X connect 9 1 0 0;
+#X connect 10 0 0 0;
+#X connect 10 1 13 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 1;
+#X connect 13 0 14 0;
+#X connect 13 1 15 0;
+#X connect 14 0 16 1;
+#X connect 15 0 16 1;
+#X connect 16 0 3 0;
+#X connect 17 0 1 0;
+#X connect 17 1 1 0;
+#X connect 18 0 9 0;
+#X connect 18 1 28 0;
+#X connect 19 0 24 0;
+#X connect 20 0 30 0;
+#X connect 20 1 21 0;
+#X connect 21 0 22 1;
+#X connect 22 0 10 0;
+#X connect 24 0 25 0;
+#X connect 25 0 26 0;
+#X connect 25 1 20 0;
+#X connect 26 0 27 0;
+#X connect 27 0 20 0;
+#X connect 28 0 9 0;
+#X connect 29 0 18 0;
+#X connect 29 1 1 0;
+#X connect 30 0 22 1;
+#X restore 1020 141 pd list2symbol;
+#X obj 176 815 openpanel;
+#X obj 176 860 s \$0-vlc;
+#X msg 176 837 list enqueue \$1;
+#X msg 393 460 list clear;
+#X msg 63 815 list clear;
+#X obj 36 789 t a b;
+#X obj 393 439 r \$0-vlc-clear;
+#X obj 47 470 r \$0-vlc-connect;
+#X obj 413 498 r \$0-vlc-play;
+#X obj 417 545 r \$0-vlc-pause;
+#X obj 417 594 r \$0-vlc-stop;
+#X obj 64 544 r \$0-vlc-disconnect;
+#X text 68 39 Play one file, f 5;
+#X obj 176 731 r \$0-vlc-enq-file;
+#X obj 218 440 r \$0-vlc-playlist;
+#X obj 228 494 r \$0-vlc-help;
+#X obj 837 490 s \$0-vlc-is-connected;
+#X text 1398 18 COMPLETE LIST;
+#X obj 36 731 r \$0-vlc-play-one;
+#X obj 417 644 r \$0-vlc-prev;
+#X msg 417 665 list prev;
+#X obj 417 694 r \$0-vlc-next;
+#X msg 417 715 list next;
+#X obj 294 38 cnv 15 130 25 empty empty VLC_CONTROLLER 10 12 0 14 -262144
+-258113 0;
+#X obj 837 330 t f f;
+#X obj 864 359 route 0;
+#X msg 903 382 0;
+#X obj 903 404 t f f;
+#X obj 903 456 s \$0-vlc-loop;
+#X obj 930 430 s \$0-vlc-repeat;
+#X obj 332 175 tgl 15 0 \$0-vlc-loop \$0-vlc-loop-rcv empty 17 7 0
+10 -262144 -1 -1 0 1;
+#X obj 332 195 tgl 15 0 \$0-vlc-repeat \$0-vlc-repeat-rcv empty 17
+7 0 10 -262144 -1 -1 0 1;
+#X text 1271 46 +----[ CLI commands ] \; | add XYZ ....................add
+XYZ to playlist \; | enqueue XYZ .................queue XYZ to playlist
+\; | playlist ............. show items currently in playlist \; | search
+[string] .. search for items in playlist (or reset . search) \; | delete
+[X] ................delete item X in playlist \; | move [X][Y] ............move
+item X in playlist after Y \; | sort key .....................sort
+the playlist \; | sd [sd] .............show services discovery or toggle
+\; | play ..........................play stream \; | stop ..........................stop
+stream \; | next ...................... next playlist item \; | prev
+.................... previous playlist item \; | goto \, gotoitem .................
+goto item at index \; | repeat [on|off] .............. toggle playlist
+repeat \; | loop [on|off] ................ toggle playlist loop \;
+| random [on|off] .............. toggle playlist random \; | clear
+..................... clear the playlist \; | status ...................current
+playlist status \; | title [X] ..............set/get title in current
+item \; | title_n ................ next title in current item \; |
+title_p .............. previous title in current item \; | chapter
+[X] ............set/get chapter in current item \; | chapter_n ..............
+next chapter in current item \; | chapter_p ............ previous chapter
+in current item \; | \; | seek X ........seek in seconds \, for instance
+`seek 12' \; | pause ........................ toggle pause \; | fastforward
+..................set to maximum rate \; | rewind .....................set
+to minimum rate \; | faster .................. faster playing of stream
+\; | slower .................. slower playing of stream \; | normal
+.................. normal playing of stream \; | rate [playback rate]
+....... set playback rate to value \; | frame .....................play
+frame by frame \; | fullscreen \, f \, F [on|off] ............toggle
+fullscreen \; | info ............. information about the current stream
+\; | stats ................ show statistical information \; | get_time
+...... seconds elapsed since stream's beginning \; | is_playing ............
+1 if a stream plays \, 0 otherwise \; | get_title .............the
+title of the current stream \; | get_length ............ the length
+of the current stream \; | \; | volume [X] .................. set/get
+audio volume \; | volup [X] ............... raise audio volume X steps
+\; | voldown [X] .............. lower audio volume X steps \; | achan
+[X] ............ set/get stereo audio output mode \; | atrack [X] ...................set/get
+audio track \; | vtrack [X] ...................set/get video track
+\; | vratio [X] ............... set/get video aspect ratio \; | vcrop
+\, crop [X] ................ set/get video crop \; | vzoom \, zoom
+[X] ................ set/get video zoom \; | vdeinterlace [X] .............set/get
+video deinterlace \; | vdeinterlace_mode [X] .. set/get video deinterlace
+mode \; | snapshot ....................take video snapshot \; | strack
+[X] ................. set/get subtitle track \; | \; | vlm .........................
+load the VLM \; | description ................. describe this module
+\; | help \, ? [pattern] ................. a help message \; | longhelp
+[pattern] ..............a longer help message \; | lock ....................
+lock the telnet prompt \; | logout .............. exit (if in a socket
+connection) \; | quit .... quit VLC (or logout if in a socket connection)
+\; | shutdown ....................... shutdown VLC \; +----[ end of
+help ] \;;
+#X obj 593 433 r \$0-vlc-repeat;
+#X obj 636 601 r \$0-vlc-loop;
+#X obj 593 790 s \$0-vlc;
+#X obj 593 455 route 0;
+#X msg 632 545 list repeat on;
+#X obj 636 623 route 0;
+#X msg 675 723 list loop on;
+#X msg 593 571 list repeat off;
+#X msg 636 746 list loop off;
+#X obj 632 478 t b b;
+#X msg 659 499 0;
+#X obj 659 521 s \$0-vlc-loop-rcv;
+#X obj 675 647 t b b;
+#X msg 702 668 0;
+#X obj 702 690 s \$0-vlc-repeat-rcv;
+#X text 351 175 Repeat all;
+#X text 351 195 Repeat one;
+#X text 35 398 Connect - Disconnect;
+#X text 212 397 Playlist - Help - Quit;
+#X text 382 397 ClearPlLst - Play - Pause;
+#X text 382 410 Stop - Prev - Next;
+#X text 592 397 Repeat - Loop;
+#X text 42 686 Play one file;
+#X text 182 686 Enqueue file;
+#X text 854 137 Does the stuff;
+#X obj 1119 359 list prepend;
+#X obj 1119 386 t l l;
+#X obj 1075 426 list;
+#X obj 1142 478 list tosymbol;
+#X obj 1056 300 route 10 13;
+#X obj 1056 328 t b b b;
+#X obj 1075 448 route bang;
+#X msg 1142 500 \$1;
+#X obj 1142 522 print;
+#X msg 920 94 list F;
+#X connect 25 0 77 0;
+#X connect 26 0 49 0;
+#X connect 27 0 28 0;
+#X connect 28 0 37 0;
+#X connect 29 0 46 0;
+#X connect 30 0 42 0;
+#X connect 31 0 42 0;
+#X connect 32 0 58 0;
+#X connect 33 0 41 0;
+#X connect 34 0 35 0;
+#X connect 35 0 27 0;
+#X connect 36 0 49 0;
+#X connect 37 0 25 0;
+#X connect 37 1 115 0;
+#X connect 38 0 42 0;
+#X connect 39 0 46 0;
+#X connect 40 0 46 0;
+#X connect 43 0 52 0;
+#X connect 44 0 46 0;
+#X connect 45 0 46 0;
+#X connect 47 0 48 0;
+#X connect 48 1 52 0;
+#X connect 50 0 37 0;
+#X connect 51 0 36 0;
+#X connect 52 0 34 0;
+#X connect 53 0 55 0;
+#X connect 55 0 54 0;
+#X connect 56 0 42 0;
+#X connect 57 0 41 0;
+#X connect 58 0 33 0;
+#X connect 58 1 57 0;
+#X connect 59 0 56 0;
+#X connect 60 0 36 0;
+#X connect 61 0 30 0;
+#X connect 62 0 38 0;
+#X connect 63 0 31 0;
+#X connect 64 0 26 0;
+#X connect 66 0 53 0;
+#X connect 67 0 45 0;
+#X connect 68 0 44 0;
+#X connect 71 0 32 0;
+#X connect 72 0 73 0;
+#X connect 73 0 42 0;
+#X connect 74 0 75 0;
+#X connect 75 0 42 0;
+#X connect 77 0 69 0;
+#X connect 77 1 78 0;
+#X connect 78 1 79 0;
+#X connect 79 0 80 0;
+#X connect 80 0 81 0;
+#X connect 80 1 82 0;
+#X connect 86 0 89 0;
+#X connect 87 0 91 0;
+#X connect 89 0 93 0;
+#X connect 89 1 95 0;
+#X connect 90 0 88 0;
+#X connect 91 0 94 0;
+#X connect 91 1 98 0;
+#X connect 92 0 88 0;
+#X connect 93 0 88 0;
+#X connect 94 0 88 0;
+#X connect 95 0 90 0;
+#X connect 95 1 96 0;
+#X connect 96 0 97 0;
+#X connect 98 0 92 0;
+#X connect 98 1 99 0;
+#X connect 99 0 100 0;
+#X connect 111 0 112 0;
+#X connect 112 0 113 1;
+#X connect 112 1 111 1;
+#X connect 113 0 117 0;
+#X connect 114 0 118 0;
+#X connect 115 0 116 0;
+#X connect 115 1 116 0;
+#X connect 115 2 111 0;
+#X connect 116 0 113 1;
+#X connect 116 1 113 0;
+#X connect 116 2 111 1;
+#X connect 117 1 114 0;
+#X connect 118 0 119 0;
+#X connect 120 0 52 0;
+#X coords 0 -1 1 1 400 300 2 30 30;
+#X restore 10 15 pd vlc-player;
+#X text 423 13 Run VLC as:;
+#X text 423 27 vlc -I rc --rc-host=localhost:1234;
+#X text 692 300 0.2;

@@ -1,0 +1,64 @@
+#N canvas 334 116 1113 671 12;
+#X declare -lib zexy;
+#X declare -lib motex;
+#X obj 43 455 list;
+#X obj 47 537 motex/system;
+#N canvas 0 23 231 126 init 0;
+#X obj 44 26 declare -lib zexy;
+#X obj 43 49 declare -lib motex;
+#X restore -9 66 pd init;
+#X text 180 285 open VLC application;
+#X msg 177 145 stop;
+#X msg 311 192 next;
+#X obj 48 479 list2symbol;
+#X msg 48 503 osascript -e 'tell application "VLC" to \$1' &;
+#X text 292 956 click to open video file (check file directory);
+#X msg 393 518 osascript -e 'tell application "VLC" to next' &, f
+70;
+#X msg 143 312 osascript -e 'tell application "Finder" to open application
+file "VLC.app" of folder "Applications" of startup disk' &, f 126
+;
+#X msg 312 218 previous;
+#X obj 123 204 s vlc_messgaes;
+#X obj 31 397 r vlc_messgaes;
+#X msg 17 144 mute;
+#X msg 194 412 osascript -e 'tell application "VLC" to open "/Users/sfxseoul/Desktop/SimpleThoughts02/Video/ST_playlist.m3u"'
+, f 70;
+#X obj 97 119 bang_at 30;
+#X obj 176 120 bang_at 330;
+#X obj 113 283 loadbang;
+#X obj 17 118 bang_at 10;
+#X msg 100 144 play;
+#X obj 200 347 delay 5000;
+#X obj 264 129 bng 10 250 50 0 empty Stop_Playing_Global STOP 0 -5
+0 10 -4160 -1 -1;
+#X msg 50 430 stop;
+#X obj 204 375 t b b;
+#X obj 96 86 bang_at 480;
+#X obj 183 86 bang_at 600;
+#X obj 11 87 bang_at 480;
+#X connect 0 0 6 0;
+#X connect 4 0 12 0;
+#X connect 5 0 12 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X connect 9 0 1 0;
+#X connect 10 0 1 0;
+#X connect 11 0 12 0;
+#X connect 13 0 0 0;
+#X connect 14 0 12 0;
+#X connect 15 0 1 0;
+#X connect 16 0 20 0;
+#X connect 17 0 4 0;
+#X connect 18 0 10 0;
+#X connect 18 0 21 0;
+#X connect 19 0 14 0;
+#X connect 20 0 12 0;
+#X connect 21 0 24 0;
+#X connect 22 0 4 0;
+#X connect 23 0 0 0;
+#X connect 24 0 23 0;
+#X connect 24 1 15 0;
+#X connect 25 0 20 0;
+#X connect 26 0 4 0;
+#X connect 27 0 14 0;

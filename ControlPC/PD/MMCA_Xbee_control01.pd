@@ -1,0 +1,61 @@
+#N canvas 698 361 898 490 12;
+#X msg 260 229 devices;
+#X obj 218 317 print;
+#X obj 221 290 comport 9 9600;
+#X msg 324 251 close;
+#X obj 138 227 pack 255 12 f;
+#X floatatom 226 200 5 0 0 0 - - - 0;
+#X obj 601 278 f;
+#X obj 633 278 + 1;
+#X obj 601 232 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000
+#000000 0 1;
+#X msg 665 278 0;
+#X text 54 17 225 : start byte xbee_num : number of xbee command :
+command value(0~9);
+#X text 266 24 https://docs.google.com/spreadsheets/d/1OfOOVjiNZhtA4a2uVgPcSFi5iRe3qQ3PflWmRiDtCDc/edit#gid=0
+;
+#X floatatom 182 200 5 0 0 0 - - - 0;
+#X obj 138 206 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc
+#000000 #000000;
+#X obj 699 278 sel 13;
+#X obj 601 352 pack 255 f 0;
+#X obj 601 322 t b f;
+#X obj 53 296 print;
+#X msg 601 207 1;
+#X obj 601 187 bng 15 250 50 0 empty empty Home_Position_All 17 7 0
+10 #fcfcfc #000000 #000000;
+#X obj 601 376 s serial_bytes;
+#X obj 53 270 r serial_bytes;
+#X msg 635 207 0;
+#X obj 601 253 metro 10;
+#X msg 324 231 open 0;
+#X msg 181 153 255 2 2;
+#X msg 248 153 255 2 1;
+#X msg 69 226 255 12 1;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 2 0;
+#X connect 5 0 4 2;
+#X connect 6 0 7 0;
+#X connect 6 0 14 0;
+#X connect 6 0 16 0;
+#X connect 7 0 6 1;
+#X connect 8 0 23 0;
+#X connect 9 0 6 1;
+#X connect 12 0 4 1;
+#X connect 13 0 4 0;
+#X connect 14 0 9 0;
+#X connect 14 0 22 0;
+#X connect 15 0 20 0;
+#X connect 16 0 15 0;
+#X connect 16 1 15 1;
+#X connect 18 0 8 0;
+#X connect 19 0 18 0;
+#X connect 21 0 17 0;
+#X connect 22 0 8 0;
+#X connect 23 0 6 0;
+#X connect 24 0 2 0;
+#X connect 25 0 2 0;
+#X connect 26 0 2 0;
+#X connect 27 0 2 0;

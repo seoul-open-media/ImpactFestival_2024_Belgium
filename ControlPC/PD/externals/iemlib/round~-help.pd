@@ -1,0 +1,28 @@
+#N canvas 375 118 381 356 10;
+#X text 32 56 dsp ON/OFF;
+#X floatatom 49 233 7 0 0 0 - - -, f 7;
+#X floatatom 50 127 7 0 0 0 - - -, f 7;
+#X floatatom 15 96 5 0 0 0 - - -, f 5;
+#X text 50 95 % cpu;
+#X obj 15 76 dsp;
+#X obj 15 56 tgl 15 0 empty empty empty 8 -8 0 10 -262144 -1 -1 0 1
+;
+#X text 13 13 round~;
+#X obj 50 149 sig~;
+#X obj 50 178 round~;
+#X obj 49 211 unsig~;
+#X text 100 176 no arg;
+#X text 77 13 signal-float-rounding to;
+#X text 119 286 IEM KUG;
+#X text 103 274 musil;
+#X text 133 274 @;
+#X text 139 274 iem.at;
+#X text 102 296 Graz \, Austria;
+#X text 54 263 (c) Thomas Musil 2000 - 2018;
+#X text 80 24 the nearest signal-integer-number;
+#X connect 2 0 8 0;
+#X connect 5 0 3 0;
+#X connect 6 0 5 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 1 0;

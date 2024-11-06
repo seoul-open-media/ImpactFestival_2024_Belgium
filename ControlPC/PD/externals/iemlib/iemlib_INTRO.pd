@@ -1,0 +1,329 @@
+#N canvas 98 26 462 459 10;
+#X obj 37 12 cnv 15 286 20 empty empty _iemlib_R1.22_contents: 20 12
+0 16 -261682 -66577 0;
+#X obj 37 32 cnv 4 286 4 empty empty empty 20 12 0 16 -261682 -66577
+0;
+#N canvas 38 168 590 175 time_message_objects 0;
+#X obj 33 14 aspeedlim;
+#X text 103 14 speedlimit for anything-message;
+#X obj 33 44 bpe;
+#X obj 33 79 for++;
+#X obj 33 124 speedlim;
+#X text 63 43 break-point-envelope controller;
+#X text 96 124 speedlimit for float messages;
+#X text 77 79 counter with begin \, end \, delay \, increment;
+#X restore 86 156 pd time_message_objects;
+#N canvas 38 179 609 344 math_message_objects 0;
+#X obj 33 14 1p1z 0.01 0 0.99;
+#X text 138 13 1st order IIR-filter for float-messages;
+#X obj 33 44 db2v;
+#X obj 33 69 dbtofad;
+#X obj 90 69 fadtodb;
+#X obj 71 44 v2db;
+#X obj 210 69 fadtorms;
+#X obj 148 69 rmstofad;
+#X obj 33 104 exp_inc;
+#X obj 33 129 f2note;
+#X obj 33 199 round_zero;
+#X text 106 43 rms value to technical dB converter and vice versa;
+#X text 269 69 fader to midi-dB or rms converter and vice versa;
+#X text 88 103 exponetial or linear incrementer;
+#X text 83 127 frequency to midi and pitch of a musical note;
+#X obj 33 169 modulo_counter;
+#X text 129 169 integer counter with modulo overflow;
+#X text 103 199 very small float numbers will be rounded to zero;
+#X obj 33 229 split3;
+#X obj 33 259 split;
+#X text 77 258 obsolete \, replaced by pd-vanilla;
+#X obj 283 259 moses;
+#X obj 33 294 transf_fader;
+#X text 79 227 part a float-message into 3 ways;
+#X text 118 295 break point list interpolation;
+#X restore 86 180 pd math_message_objects;
+#N canvas 44 171 560 289 pd_structure_objects 0;
+#X obj 31 25 iem_receive;
+#X obj 111 25 iem_r;
+#X obj 31 50 iem_send;
+#X obj 111 50 iem_s;
+#X obj 31 100 parentdollarzero;
+#X obj 31 140 pre_inlet;
+#X obj 31 165 prepend_ascii 98;
+#X text 164 24 receive object with setable receive name;
+#X text 164 49 obsolete \, replaced by pd-vanilla;
+#X obj 375 48 s;
+#X text 141 99 receive the unique number of the parent pd-patch as
+a symbol;
+#X text 95 139 workaround for proxy inlets;
+#X text 138 164 another workaround for proxy inlets;
+#X restore 86 229 pd pd_structure_objects;
+#N canvas 46 187 889 235 math_signal_objects~ 0;
+#X obj 20 17 addl~;
+#X obj 100 17 mull~;
+#X obj 60 17 divl~;
+#X obj 140 17 subl~;
+#X text 181 17 signal addition / division / multiplication / subtraction
+with line~ interpolated float message, f 96;
+#X obj 33 44 int_fract~;
+#X obj 33 69 m2f~;
+#X obj 33 99 peakenv_hold~;
+#X obj 33 154 peakenv~;
+#X obj 33 184 round~;
+#X text 113 44 separate the integer part from the fractional part of
+a signal, f 63;
+#X text 76 68 midi to frequency signal converter;
+#X text 127 98 signal-peak-envelope-follower with peak hold time in
+ms (zero attack time), f 75;
+#X text 99 153 signal-peak-envelope-follower (zero attack time);
+#X text 78 183 signal rounding to next integer value;
+#X obj 33 126 peakenv_AR~;
+#X text 127 125 signal-peak-envelope-follower with attack and release
+time in ms, f 75;
+#X restore 85 321 pd math_signal_objects~;
+#N canvas 37 166 884 814 signal_filter_objects~ 0;
+#X obj 33 24 ap1_dp~;
+#X obj 33 49 ap1~;
+#X obj 83 24 ap2_dp~;
+#X obj 83 49 ap2~;
+#X obj 33 79 bp2_dp~;
+#X obj 85 79 bp2~;
+#X obj 123 79 bpq2_dp~;
+#X obj 182 79 bpq2~;
+#X obj 33 109 bpw2_dp~;
+#X obj 92 109 bpw2~;
+#X obj 33 134 bs2_dp~;
+#X obj 85 134 bs2~;
+#X obj 123 134 bsq2_dp~;
+#X obj 182 134 bsq2~;
+#X obj 33 159 bsw2_dp~;
+#X obj 92 159 bsw2~;
+#X obj 33 189 FIR~;
+#X obj 33 219 hml_shelf~;
+#X obj 33 244 hp1_dp~;
+#X obj 83 244 hp2_dp~;
+#X obj 33 269 hp1~;
+#X obj 83 269 hp2~;
+#X obj 143 294 hp2c_dp~;
+#X obj 203 294 hp2c~;
+#X obj 33 319 hp2_bess~;
+#X obj 103 319 hp3_bess~;
+#X obj 193 319 hp9_bess~;
+#X obj 263 319 hp10_bess~;
+#X obj 33 344 hp2_butt~;
+#X obj 103 344 hp3_butt~;
+#X obj 193 344 hp9_butt~;
+#X obj 263 344 hp10_butt~;
+#X obj 33 369 hp2_cheb~;
+#X obj 103 369 hp3_cheb~;
+#X obj 193 369 hp9_cheb~;
+#X obj 263 369 hp10_cheb~;
+#X obj 263 394 hp10_crit~;
+#X obj 193 395 hp9_crit~;
+#X obj 103 394 hp3_crit~;
+#X obj 33 394 hp2_crit~;
+#X obj 33 429 lp1_dp~;
+#X obj 83 429 lp2_dp~;
+#X obj 33 454 lp1~;
+#X obj 83 454 lp2~;
+#X obj 143 479 lp2c_dp~;
+#X obj 203 479 lp2c~;
+#X obj 33 529 lp2_bess~;
+#X obj 103 529 lp3_bess~;
+#X obj 193 529 lp9_bess~;
+#X obj 263 529 lp10_bess~;
+#X obj 33 554 lp2_butt~;
+#X obj 103 554 lp3_butt~;
+#X obj 193 554 lp9_butt~;
+#X obj 263 554 lp10_butt~;
+#X obj 33 579 lp2_cheb~;
+#X obj 103 579 lp3_cheb~;
+#X obj 193 579 lp9_cheb~;
+#X obj 263 579 lp10_cheb~;
+#X obj 263 604 lp10_crit~;
+#X obj 193 605 lp9_crit~;
+#X obj 103 604 lp3_crit~;
+#X obj 33 604 lp2_crit~;
+#X obj 33 294 hp1c_dp~;
+#X obj 93 294 hp1c~;
+#X obj 33 479 lp1c_dp~;
+#X obj 93 479 lp1c~;
+#X obj 33 504 lp1_t~;
+#X obj 33 644 maverage~;
+#X obj 33 679 para_bp2~;
+#X obj 33 714 rbpq2~;
+#X obj 33 739 rbpw2~;
+#X obj 33 769 sparse_FIR~;
+#X text 107 219 high- and low-shelving filter;
+#X text 136 23 1st and 2nd order allpass filter with internal double
+precision, f 65;
+#X text 136 48 1st and 2nd order allpass filter;
+#X text 230 79 2nd order bandpass filter with Q-inlet (opt. with internal
+double precision), f 79;
+#X text 140 109 2nd order bandpass filter with bandwidth-inlet (with
+internal double precision), f 84;
+#X text 230 134 2nd order bandstop filter with Q-inlet (with internal
+double precision), f 74;
+#X text 141 159 2nd order bandstop filter with bandwidth-inlet (with
+internal double precision), f 83;
+#X text 136 243 1st and 2nd order highpass filter with internal double
+precision, f 67;
+#X text 136 268 1st and 2nd order highpass filter;
+#X text 256 286 1st and 2nd order highpass filter for building filter
+cascades (opt. with internal double precision);
+#X text 338 319 up to 10th order highpass filter with bessel characteristic
+;
+#X text 338 345 up to 10th order highpass filter with butterworth characteristic
+, f 65;
+#X text 338 363 up to 10th order highpass filter with chebyshev characteristic
+(0 .. 1 dB passband ripple), f 63;
+#X text 338 394 up to 10th order highpass filter with critically damped
+characteristic, f 70;
+#X text 338 604 up to 10th order lowpass filter with critically damped
+characteristic, f 70;
+#X text 338 573 up to 10th order lowpass filter with chebyshev characteristic
+(0 .. 1 dB passband ripple), f 63;
+#X text 338 555 up to 10th order lowpass filter with butterworth characteristic
+, f 65;
+#X text 338 529 up to 10th order lowpass filter with bessel characteristic
+;
+#X text 256 474 1st and 2nd order lowpass filter for building filter
+cascades (opt. with internal double precision);
+#X text 96 503 1st order lowpass filter with accurate impulse response
+;
+#X text 136 453 1st and 2nd order lowpass filter;
+#X text 136 428 1st and 2nd order lowpass filter with internal double
+precision, f 65;
+#X text 101 643 moving average signal filter;
+#X text 101 678 parametrical bandpass filter;
+#X text 112 769 finite impulse response signal filter with sparse nonzero
+IR-values, f 72;
+#X text 82 714 2nd order resonance bandpass filter with Q-inlet;
+#X text 82 738 2nd order resonance bandpass filter with bandwidth-inlet
+;
+#X text 77 188 convolve a signal with an array;
+#X restore 85 368 pd signal_filter_objects~;
+#N canvas 23 171 663 184 signal_generator_objects~ 0;
+#X obj 33 59 LFO_noise~;
+#X obj 33 89 pink~;
+#X text 106 53 white noise generator with high order cutoff frequency
+(2-point interpolated \, max. amplitude between -0.5 and 0.5), f 61
+;
+#X text 77 89 pink noise signal generator;
+#X obj 33 24 fade~;
+#X text 82 22 shape a line~ ramp;
+#X restore 85 344 pd signal_generator_objects~;
+#N canvas 41 169 572 218 various_signal_objects~ 0;
+#X obj 33 19 iem_blocksize~;
+#X obj 33 44 prvu~;
+#X obj 33 69 pvu~;
+#X obj 33 99 rvu~;
+#X obj 33 124 sin_freq~;
+#X obj 33 149 sin_phase~;
+#X obj 33 179 unsig~;
+#X text 127 20 report blocksize of canvas;
+#X text 74 45 peak- and rms-signal converter;
+#X text 70 68 peak-signal converter;
+#X text 69 98 rms-signal converter;
+#X text 99 123 sine signal frequency estimator;
+#X text 102 148 sine signal phase estimator;
+#X text 83 179 periodical signal to float-message converter;
+#X restore 85 391 pd various_signal_objects~;
+#N canvas 50 174 563 367 various_objects 0;
+#X obj 33 14 default;
+#X obj 33 39 dsp;
+#X obj 63 39 dsp~;
+#X obj 33 74 float24;
+#X obj 33 104 gate;
+#X obj 33 169 init;
+#X obj 73 169 ii;
+#X obj 33 204 once;
+#X obj 33 304 unsymbol;
+#X text 107 171 initial object for whole messages at loadbang;
+#X text 87 15 replace zero value by argument;
+#X text 98 38 dsp on/off switch with cpu load meter;
+#X text 71 203 resetable one time gate;
+#X text 87 75 work like "float" but with 23 bit accuracy;
+#X text 70 104 obsolete \, replaced by pd-vanilla;
+#X obj 277 105 spigot;
+#X text 94 303 symbol to anything-message converter;
+#X obj 33 234 soundfile_info;
+#X text 127 233 wav file header info reader;
+#X text 127 140 obsolete \, replaced by pd-vanilla;
+#X obj 33 139 iem_pbank_csv;
+#X obj 333 139 text;
+#X obj 33 269 toggle_mess red green;
+#X text 171 269 multiple content controller for a message-box;
+#X restore 85 255 pd various_objects;
+#N canvas 32 165 664 242 t3_accurate_time_objects 0;
+#X obj 33 39 t3_bpe;
+#X obj 33 64 t3_delay;
+#X obj 33 89 t3_line~;
+#X obj 33 114 t3_metro;
+#X obj 33 139 t3_sig~;
+#X obj 33 164 t3_timer;
+#X text 81 40 sample accurate break-point-envelope controller;
+#X text 92 64 sample accurate message delay;
+#X text 92 89 sample accurate signal ramp generator;
+#X text 92 113 sample accurate message metronom;
+#X text 88 139 sample accurate float to signal generator;
+#X text 96 164 sample accurate timer;
+#X restore 86 132 pd t3_accurate_time_objects;
+#N canvas 45 172 752 515 list_symbol_objects 0;
+#X obj 33 39 add2_comma;
+#X msg 307 38 addcomma;
+#X text 103 39 obsolete \, replaced by pd-vanilla;
+#X obj 33 69 any;
+#X obj 63 69 iem_anything;
+#X text 145 69 a latch for anything-messages (like |f| for <float>-messages
+or |symbol| for <symbol>-messages), f 96;
+#X obj 33 99 iem_alisttosym;
+#X text 127 100 obsolete \, replaced by pd-vanilla;
+#X obj 333 99 list tosymbol;
+#X obj 33 124 iem_append;
+#X text 107 125 obsolete \, replaced by pd-vanilla;
+#X obj 313 124 list append;
+#X text 147 185 obsolete \, replaced by pd-vanilla;
+#X obj 33 184 iem_prepend;
+#X obj 353 184 list prepend;
+#X obj 113 184 pp;
+#X obj 33 219 iem_route;
+#X text 107 220 obsolete \, replaced by pd-vanilla;
+#X obj 313 219 route;
+#X text 127 245 obsolete \, replaced by pd-vanilla;
+#X obj 33 244 iem_symtoalist;
+#X obj 333 244 list fromsymbol;
+#X obj 33 274 list2send;
+#X obj 33 309 merge_any;
+#X obj 33 334 mergefilename;
+#X obj 33 364 receive2list;
+#X obj 33 154 iem_i_route 3 6;
+#X obj 143 154 iiroute 3 6;
+#X text 217 155 route-object for a list of float numbers from 1st_arg
+... to 2nd_arg, f 69;
+#X text 100 307 obsolete \, replaced by pd-vanilla;
+#X obj 315 307 list append;
+#X text 121 334 concaternate a list of atoms with a separator to a
+symbol, f 61;
+#X text 101 269 first atom of the list is the index which selects the
+send/receive name out of a given symbol list. The rest of the list
+will be sent., f 73;
+#X text 114 358 a received list will be prepended with the transformed
+symbol to an index (out of a given symbol list), f 73;
+#X obj 33 434 splitfilename;
+#X obj 33 464 stripfilename;
+#X text 125 464 split a symbol message into 2 parts \, depending on
+an character index, f 69;
+#X text 123 434 split a symbol message into 2 parts \, depending on
+an choosen separator character, f 83;
+#X text 35 11 ------------ list manipulating -------------------------
+;
+#X text 35 401 ------------ symbol manipulating -------------------------
+;
+#X restore 86 205 pd list_symbol_objects;
+#X obj 37 37 cnv 15 286 20 empty empty (written_by_Thomas_Musil) 20
+12 0 16 -261682 -66577 0;
+#X obj 37 57 cnv 4 286 4 empty empty empty 20 12 0 16 -261682 -66577
+0;
+#X obj 37 62 cnv 15 286 20 empty empty ____November_2018 20 12 0 16 -261682
+-66577 0;
+#X obj 37 82 cnv 4 286 4 empty empty empty 20 12 0 16 -261682 -66577
+0;

@@ -1,0 +1,13 @@
+test/juan/casa-brp duration 10 points 0 15.2632 0.87619 17.8947 0.180952
+16.8421 1 1.57895 0.133333 48.4211 0.828571 0 0;
+test/alberto/fernandez-knb 106.516;
+test/esteban/calca-vrd 3;
+test-INT.TIME 0;
+test/\$2/\$3-hsl 126;
+test/instr/pan-hsl 69;
+test/instr/gain-hsl 69;
+test/roberto/garcia-tgl 0;
+test/carlos/sanchez-tgl 1;
+test/casa/juan-hrd 4;
+test/GRNS/attack-vsl 40;
+test/voices/grain-nbx 0;
