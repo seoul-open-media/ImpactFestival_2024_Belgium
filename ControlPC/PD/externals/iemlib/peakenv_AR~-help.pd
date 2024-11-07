@@ -1,0 +1,101 @@
+#N canvas 190 268 1373 521 10;
+#X msg 10 143 0;
+#X msg 43 143 1;
+#X obj 45 168 sig~;
+#X floatatom 45 336 9 0 0 0 - - -, f 9;
+#X msg 155 125 reset;
+#X msg 81 144 10;
+#X text 51 188 ~signal_in~;
+#X text 42 39 dsp ON/OFF;
+#X obj 14 59 dsp;
+#X floatatom 14 80 3 0 0 0 - - -, f 3;
+#X text 41 81 % cpu;
+#X text 120 337 1.output: <sig> peak-envelope;
+#X obj 45 260 unsig~ 50;
+#X text 194 124 resets peak-envelope to 0;
+#X obj 14 41 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 1 1
+;
+#X text 126 388 IEM KUG;
+#X text 99 376 musil;
+#X text 137 376 @;
+#X text 146 376 iem.at;
+#X text 109 398 Graz \, Austria;
+#X floatatom 148 186 5 0 0 0 - - -, f 5;
+#X floatatom 265 190 5 0 0 0 - - -, f 5;
+#X msg 265 169 2000;
+#X text 305 188 ms;
+#X text 189 186 ms;
+#X text 267 205 release time;
+#X text 237 294 (output_envelope decrements about 63% in this time)
+;
+#X text 585 280 (default: 0 ms);
+#X text 232 280 2.arg: <float> time-constant of release time [ms];
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array input 50 float 1;
+#A 0 0 0 0 0 0.228571 0.0999998 -0.0285714 0 0.0714284 0.271428 0.442856
+0.699998 0.771427 0 0 0 0 0 0 0.0714284 0.114285 0.271428 0.299999
+0 0 0 0 0 -0.0142857 -0.0285714 -0.0285714 -0.0428571 -0.0428571 -0.0857141
+-0.0999998 -0.485713 -0.785713 -0.785713 -0.771427 -0.714284 -0.799998
+-0.957141 0 0 0 0 0 0 0 0;
+#X coords 0 1 49 -1 100 140 1;
+#X restore 726 46 graph;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array output 200 float 0;
+#X coords 0 1 199 -1 400 140 1;
+#X restore 726 206 graph;
+#X obj 905 92 tabplay~ input;
+#X obj 876 48 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 875 70 t b b;
+#X obj 891 160 tabwrite~ output;
+#X obj 45 237 peakenv_AR~ 5 2000;
+#X msg 148 165 5;
+#X text 147 203 attack time;
+#X obj 906 114 peakenv_AR~ 0.3 0.7;
+#X text 9 7 peakenv_AR~;
+#X text 128 6 signal-peak-envelope with attack and release time in
+ms;
+#X text 50 365 (c) Thomas Musil 2000 - 2018;
+#X text 232 240 1.arg: <float> time-constant of attack time [ms];
+#X text 237 254 (output_envelope increments about 63% in this time)
+;
+#X floatatom 995 62 5 0 0 0 - - -, f 5;
+#X msg 1035 33 0.1;
+#X msg 1067 32 0.3;
+#X msg 998 33 0.01;
+#X msg 962 33 0;
+#X floatatom 1183 66 5 0 0 0 - - -, f 5;
+#X msg 1223 37 0.1;
+#X msg 1150 37 0;
+#X msg 1255 36 0.7;
+#X msg 1293 37 2.7;
+#X msg 1186 37 0.03;
+#X connect 0 0 2 0;
+#X connect 1 0 2 0;
+#X connect 2 0 35 0;
+#X connect 4 0 35 0;
+#X connect 5 0 2 0;
+#X connect 8 0 9 0;
+#X connect 12 0 3 0;
+#X connect 14 0 8 0;
+#X connect 20 0 35 1;
+#X connect 21 0 35 2;
+#X connect 22 0 21 0;
+#X connect 31 0 38 0;
+#X connect 32 0 33 0;
+#X connect 33 0 34 0;
+#X connect 33 1 31 0;
+#X connect 35 0 12 0;
+#X connect 36 0 20 0;
+#X connect 38 0 34 0;
+#X connect 44 0 38 1;
+#X connect 45 0 44 0;
+#X connect 46 0 44 0;
+#X connect 47 0 44 0;
+#X connect 48 0 44 0;
+#X connect 49 0 38 2;
+#X connect 50 0 49 0;
+#X connect 51 0 49 0;
+#X connect 52 0 49 0;
+#X connect 53 0 49 0;
+#X connect 54 0 49 0;

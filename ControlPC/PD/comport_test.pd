@@ -1,0 +1,29 @@
+#N canvas 867 296 511 475 12;
+#X obj 181 173 comport;
+#X msg 49 118 devices;
+#X msg 271 125 devicename /dev/ttySeed;
+#X msg 178 125 baud 9600;
+#X obj 207 319 comport;
+#X msg 171 278 baud 9600;
+#X obj 186 247 t b b;
+#X obj 186 226 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc
+#000000 #000000;
+#X obj 179 87 t b b;
+#X obj 179 66 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000
+#000000;
+#X obj 179 38 loadbang;
+#X obj 185 200 loadbang;
+#X msg 246 278 devicename /dev/ttyTeensy;
+#X connect 1 0 0 0;
+#X connect 2 0 0 0;
+#X connect 3 0 0 0;
+#X connect 5 0 4 0;
+#X connect 6 0 5 0;
+#X connect 6 1 12 0;
+#X connect 7 0 6 0;
+#X connect 8 0 3 0;
+#X connect 8 1 2 0;
+#X connect 9 0 8 0;
+#X connect 10 0 9 0;
+#X connect 11 0 7 0;
+#X connect 12 0 4 0;
